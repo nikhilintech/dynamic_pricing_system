@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Product
+from .models import BulkProduct, Product, SeasonalProduct
 
 class DiscountAPITestCase(TestCase):
     def setUp(self):
@@ -40,3 +40,13 @@ class DiscountAPITestCase(TestCase):
         # Final total = $3600 * 0.90 = $3240
 
         self.assertEqual(response.data['final_total'], 3240.0)
+
+    def test_seasonal_product_price():
+        product = SeasonalProduct(name="Winter Coat", base_price=100.0, seasonal_discount=0.2)
+        assert product.get_price() == 80.0  # 20% off
+
+
+    def test_bulk_product_price():
+        product = BulkProduct(name="Box of Pens", base_price=10.0, tiered_discounts={10: 0.05, 20: 0.1})
+        assert product.get_price(25) == 225.0  # 10% off for 25 units
+    

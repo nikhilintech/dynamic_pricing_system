@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import BulkDiscountView, OrderDiscountView
+from .views import ProductPriceView, ApplyDiscountView
 
 urlpatterns = [
-    path('bulk-discount/', BulkDiscountView.as_view(), name='bulk_discount'),
-    path('order-discount/', OrderDiscountView.as_view(), name='order_discount'),
+    path('product-price/', ProductPriceView.as_view(), name='product_price'),
+    path('apply-discount/', ApplyDiscountView.as_view(), name='apply_discount'),
 ]
